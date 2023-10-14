@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import TransferForm from "./components/TransferForm";
+import Recipet from "./components/Reciept";
+import { useState } from "react";
 
 function App() {
+  const [amount, setAmount] = useState("");
+  const [reciept, setReciept] = useState(null);
+
+  const handleInputChange = (value) => {
+    setAmount(value);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <TransferForm
+        amount={amount}
+        setAmount={setAmount}
+        onChange={handleInputChange}
+        setReciept={setReciept}
+      />
+      {reciept ? <Recipet reciept={reciept} /> : ""}
     </div>
   );
 }
