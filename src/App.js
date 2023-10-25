@@ -1,25 +1,15 @@
+import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import TransferForm from "./components/TransferForm";
-import Recipet from "./components/Reciept";
-import { useState } from "react";
+
+import Router from "./router";
 
 function App() {
-  const [amount, setAmount] = useState("");
-  const [reciept, setReciept] = useState(null);
+  const [transactions, setTransactions] = useState([]);
 
-  const handleInputChange = (value) => {
-    setAmount(value);
-  };
   return (
-    <div className='App'>
-      <TransferForm
-        amount={amount}
-        setAmount={setAmount}
-        onChange={handleInputChange}
-        setReciept={setReciept}
-      />
-      {reciept ? <Recipet reciept={reciept} /> : ""}
+    <div >
+      <Router transactions={transactions} setTransactions={setTransactions} />
     </div>
   );
 }

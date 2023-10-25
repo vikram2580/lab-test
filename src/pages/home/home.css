@@ -1,0 +1,13 @@
+.Home-container{
+    text-align: center;
+}
+.Home-item-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    flex-direction: column
+}
+.Home-item-logo{
+    width: 50%;
+}

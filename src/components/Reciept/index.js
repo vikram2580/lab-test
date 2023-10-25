@@ -1,16 +1,30 @@
 import React from "react";
-import "./Reciept.css"
+import "./Reciept.css";
+import DeleteIcon from "../assets/Icon/deleteIcon.png";
 
-const Reciept = (props) => {
+const Reciept = ({ reciept, setReciept }) => {
+  const array = Object.entries(reciept).map(([key, value]) => {
+    const label = key[0].toUpperCase() + key.substring(1);
+    return { label, value };
+  });
   return (
-    <div className="Reciept-container">
-      <h1 className="Reciept-title">Reciept</h1>
-      <p className="Reciept-subtitle">Transaction Hash:<span className="Reciept-subtitle-text">{`\n${props?.reciept?.transactionHash}`}</span></p>
-      <p className="Reciept-subtitle">Block Hash:<span className="Reciept-subtitle-text">{`\n${props?.reciept?.blockHash}`}</span></p>
-      <p className="Reciept-subtitle">Block Number:<span className="Reciept-subtitle-text">{`\n${props?.reciept?.blockNumber}`}</span></p>
-      <p className="Reciept-subtitle">From:<span className="Reciept-subtitle-text">{`\n${props?.reciept?.sender}`} </span></p>
-      <p className="Reciept-subtitle">To:<span className="Reciept-subtitle-text">{`\n${props?.reciept?.reciever}`}</span></p>
-      <p className="Reciept-subtitle">Gas Used:<span className="Reciept-subtitle-text">{`\n${props?.reciept?.gasUsed}`}</span></p>
+    <div>
+      <div className='Reciept-container'>
+        <h1 className='Reciept-title'>Reciept</h1>
+        {array?.map((item, index) => (
+          <p className='Reciept-subtitle'>
+            {item?.label}:
+            <span
+              className='Reciept-subtitle-text'
+              key={index}
+            >{`\n${item?.value}`}</span>
+          </p>
+        ))}
+        <div onClick={() => setReciept()}>
+          {" "}
+          <img src={DeleteIcon} className='Delete-icon' />
+        </div>
+      </div>
     </div>
   );
 };

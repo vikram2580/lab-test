@@ -1,0 +1,19 @@
+.Wallet-container{
+    text-align: center;
+}
+.Wallet-item-container{
+    border: black solid;
+    padding: 25px 43px;
+    width: 70%;
+    display: inline-table;
+    text-align: start;
+    margin-bottom: 10px;
+}
+.Wallet-item-title{
+    font-size: 20px;
+    font-weight: 500;
+}
+.Wallet-item-subtitle{
+    font-size: 16px;
+
+}

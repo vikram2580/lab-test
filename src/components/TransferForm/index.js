@@ -1,9 +1,18 @@
-import React from "react";
-import { addresses } from "../../constants/contant";
+import React, { useState } from "react";
+import { addresses, mockAddress } from "../../constants/contant";
+import { useParams } from "react-router-dom";
 import { faker } from "@faker-js/faker/locale/af_ZA";
 import "./TransferForm.css";
+import Reciept from "../Reciept";
 
-const TransferForm = ({ amount, onChange, setReciept }) => {
+const TransferForm = ({ setTransactions }) => {
+  const [amount, setAmount] = useState("");
+  const [reciept, setReciept] = useState(null);
+  const { address } = useParams();
+
+  const handleInputChange = (value) => {
+    setAmount(value);
+  };
   const handleSendAmount = (event) => {
     event.preventDefault();
     const transactionHash = `0x${faker.string.alphanumeric(64)}`;
@@ -12,43 +21,61 @@ const TransferForm = ({ amount, onChange, setReciept }) => {
     const gasUsed = Math.floor(Math.random() * 10000);
 
     const reciept = {
-      sender: addresses.SENDER_ADDRESS,
-      reciever: addresses.RECIVER_ADDRESS,
-      amount: amount,
       transactionHash,
       blockHash,
       blockNumber,
+      from: mockAddress[0],
+      to: address,
+      amount: amount,
+      gasUsed,
+    };
+    const transactionHistory = {
+      transactionHash,
+      status: "SUCCESS",
+      timeStamp: Date.now(),
+      from: mockAddress[0],
+      to: address,
+      amount: amount + "\nETH",
       gasUsed,
     };
     setReciept(reciept);
+    setTransactions((prv) => {
+      return [...prv, transactionHistory];
+    });
+    setAmount("");
   };
 
   return (
     <div className='Form-container'>
-      <h1 className='Form-title'>Transfer</h1>
-      <p className='Form-subtitle'>
-        From:
-        <span className='From-subtitle-text'>{`\n${addresses.SENDER_ADDRESS}`}</span>
-      </p>
-      <p className='Form-subtitle'>
-        To:
-        <span className='From-subtitle-text'>{`\n${addresses.RECIVER_ADDRESS}`}</span>
-      </p>
-      <form onSubmit={handleSendAmount}>
-        <div className="Form-input-container">
+      <h1>Transfer</h1>
+      <div className='Form-sub-container'>
+        <p className='Form-subtitle'>
+          From:
+          <span className='From-subtitle-text'>{`\n${mockAddress[0]}`}</span>
+        </p>
+        <p className='Form-subtitle'>
+          To:
+          <span className='From-subtitle-text'>{`\n${address}`}</span>
+        </p>
+        <form onSubmit={handleSendAmount}>
+          <div className='Form-input-container'>
             <div>
-            <label className="Form-input-label" >{`Amount:\n`}</label>
-          <input
-            type='number'
-            value={amount}
-            onChange={(e) => onChange(e?.target?.value)}
-            required
-            className="Form-input"
-          />
+              <label className='Form-input-label'>{`Amount:\n`}</label>
+              <input
+                type='number'
+                value={amount}
+                onChange={(e) => handleInputChange(e?.target?.value)}
+                required
+                className='Form-input'
+              />
+            </div>
+            <button type='submit' className='Form-button' disabled={reciept}>
+              Send
+            </button>
           </div>
-          <button type='submit' className="Form-button">Send</button>
-        </div>
-      </form>
+        </form>
+      </div>
+      {reciept ? <Reciept reciept={reciept} setReciept={setReciept} /> : ""}
     </div>
   );
 };

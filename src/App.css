@@ -1,5 +1,5 @@
 .App {
-  padding: 34px 40px;
+  padding-left: 201px
 }
 
 .App-logo {
@@ -36,3 +36,4 @@
     transform: rotate(360deg);
   }
 }
+

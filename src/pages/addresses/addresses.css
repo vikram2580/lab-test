@@ -1,0 +1,18 @@
+.Disable-link{
+    pointer-events: none;
+}
+.Address-container{
+    text-align: center;
+}
+.Address-list{
+    display: inline-table;
+}
+.Address-list-item{
+    margin: 30px 0px;
+    font-size: 20px;
+     
+}
+.Address-link{
+    color: black;
+    text-decoration: none
+ } 

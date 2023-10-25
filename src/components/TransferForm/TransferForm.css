@@ -1,12 +1,15 @@
 .Form-container{
+    text-align: center;
+}
+.Form-sub-container{
     border: black solid;
     padding: 25px 43px;
     width: 70%;
-    margin-bottom: 22px;
+    display: inline-table;
+    text-align: start;
+    margin-bottom: 10px;
 }
-.Form-title{
-    margin-top: 0px;
-}
+
 .Form-subtitle{
     font-size: 20px;
     font-weight: 500;
@@ -33,5 +36,7 @@
     width: 82px;
     margin-top: 27px;
     height: 35px;
-    background: peru;
+    font-size: 15px;
+    border: none;
+    background: #f5ce68;
 }
