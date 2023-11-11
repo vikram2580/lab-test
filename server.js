@@ -1,14 +1,16 @@
 const express = require("express");
 const cors = require("cors");
-const { getAddress } = require("./accounts");
+const { getAddresses } = require("./accounts");
 
 const app = express();
 const port = 5000;
 
 app.use(cors());
 app.use(express.json());
+
+//Get Api 
 app.get("/account/addresses", (req, res) => {
-  const addresses = getAddress();
+  const addresses = getAddresses();
   res.json({ addresses });
 });
 

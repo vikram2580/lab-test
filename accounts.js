@@ -1,5 +1,6 @@
 const {faker} = require("@faker-js/faker")
-const getAddress = () => {
+
+const getAddresses = () => {
   const addresses = [];
 
   for (let i = 0; i < 10; i++) {
@@ -10,4 +11,4 @@ const getAddress = () => {
   return addresses;
 };
 
-module.exports = {getAddress}
+module.exports = {getAddresses}
