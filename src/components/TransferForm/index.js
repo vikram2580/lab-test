@@ -5,7 +5,7 @@ import { faker } from "@faker-js/faker/locale/af_ZA";
 import "./TransferForm.css";
 import Reciept from "../Reciept";
 
-const TransferForm = ({ setTransactions }) => {
+const TransferForm = ({ addresses,setTransactions }) => {
   const [amount, setAmount] = useState("");
   const [reciept, setReciept] = useState(null);
   const { address } = useParams();
@@ -24,7 +24,7 @@ const TransferForm = ({ setTransactions }) => {
       transactionHash,
       blockHash,
       blockNumber,
-      from: mockAddress[0],
+      from: addresses[0],
       to: address,
       amount: amount,
       gasUsed,
@@ -33,7 +33,7 @@ const TransferForm = ({ setTransactions }) => {
       transactionHash,
       status: "SUCCESS",
       timeStamp: Date.now(),
-      from: mockAddress[0],
+      from: addresses[0],
       to: address,
       amount: amount + "\nETH",
       gasUsed,
@@ -51,7 +51,7 @@ const TransferForm = ({ setTransactions }) => {
       <div className='Form-sub-container'>
         <p className='Form-subtitle'>
           From:
-          <span className='From-subtitle-text'>{`\n${mockAddress[0]}`}</span>
+          <span className='From-subtitle-text'>{`\n${addresses[0]}`}</span>
         </p>
         <p className='Form-subtitle'>
           To:

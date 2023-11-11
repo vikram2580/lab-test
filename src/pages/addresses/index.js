@@ -1,14 +1,16 @@
-import React from "react";
-import { mockAddress } from "../../constants/contant";
+import React, { useEffect } from "react";
+// import { mockAddress } from "../../constants/contant";
 import { Link } from "react-router-dom";
 import "./addresses.css";
 
-const Addresses = () => {
+const Addresses = ({addresses}) => {
+  
+  
   return (
     <div className='Address-container'>
       <h1>Addresses</h1>
       <div className="Address-list">
-      {mockAddress?.map((item, index) => (
+      {addresses?.map((item, index) => (
           <ul className="Address-list-item">
             <li key={index} className="list-inline-item">
               

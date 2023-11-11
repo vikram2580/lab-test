@@ -11,16 +11,16 @@ import { WalletPage, TransactionsPage, AddressesPage,HomePage } from "../pages";
 import TransferForm from "../components/TransferForm";
 import Navbar from "../components/Navbar";
 
-  const Router = ({transactions,setTransactions}) => {
+  const Router = ({transactions,setTransactions,addresses}) => {
   return (
     <BrowserRouter>
       <Navbar />
       <Routes >
         <Route path={ROUTES.APP} element={<HomePage />} />
-        <Route path={ROUTES.WALLET} element={<WalletPage />} />
+        <Route path={ROUTES.WALLET} element={<WalletPage addresses={addresses} />} />
         <Route path={ROUTES.TRANSECTIONS} element={<TransactionsPage transactions={transactions} />} />
-        <Route path={ROUTES.ADDRESSES} element={<AddressesPage />} />
-        <Route path={ROUTES.TRANSFER} element={<TransferForm setTransactions={setTransactions} />} />
+        <Route path={ROUTES.ADDRESSES} element={<AddressesPage addresses={addresses}/>} />
+        <Route path={ROUTES.TRANSFER} element={<TransferForm setTransactions={setTransactions} addresses={addresses} />} />
       </Routes>
     </BrowserRouter>
   );
