@@ -6,7 +6,7 @@ Student Id - 101501507
 
 #student-2
 Name - Reetika
-Student Id - 101501507 
+Student Id - 101496084
 
 Instructions for Project installing and running:-
 
