@@ -1,19 +1,26 @@
 import React, { useEffect } from "react";
-// import { mockAddress } from "../../constants/contant";
 import { Link } from "react-router-dom";
 import "./addresses.css";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAddresses } from "../../redux/reducers/addressSlice";
 
-const Addresses = ({addresses}) => {
-  
-  
+const Addresses = () => {
+  const dispatch = useDispatch();
+  const { addresses } = useSelector((state) => state.address);
+
+  useEffect(() => {
+    if (addresses.length === 0) {
+      dispatch(fetchAddresses());
+    }
+  }, [dispatch, addresses]);
+
   return (
     <div className='Address-container'>
       <h1>Addresses</h1>
-      <div className="Address-list">
-      {addresses?.map((item, index) => (
-          <ul className="Address-list-item">
-            <li key={index} className="list-inline-item">
-              
+      <div className='Address-list'>
+        {addresses?.map((item, index) => (
+          <ul className='Address-list-item'>
+            <li key={index} className='list-inline-item'>
               <Link
                 to={`/transfer/${item}`}
                 className={`Address-link ${index === 0 ? "Disable-link" : ""}`}
@@ -22,7 +29,7 @@ const Addresses = ({addresses}) => {
               </Link>
             </li>
           </ul>
-      ))}
+        ))}
       </div>
     </div>
   );

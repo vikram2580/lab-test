@@ -10,7 +10,7 @@
 .Address-list-item{
     margin: 30px 0px;
     font-size: 20px;
-     
+    text-align: left;
 }
 .Address-link{
     color: black;

@@ -100,6 +100,7 @@
     top: 0;
     background-color:#f5ce68;
     animation: fadeIn 0.5s;
+    z-index: 99;
   }
   
   @keyframes fadeIn {

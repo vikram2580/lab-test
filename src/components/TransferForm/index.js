@@ -1,19 +1,22 @@
 import React, { useState } from "react";
-import { addresses, mockAddress } from "../../constants/contant";
 import { useParams } from "react-router-dom";
 import { faker } from "@faker-js/faker/locale/af_ZA";
 import "./TransferForm.css";
 import Reciept from "../Reciept";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
-const TransferForm = ({ addresses,setTransactions }) => {
-  const [amount, setAmount] = useState("");
+const TransferForm = ({ addresses }) => {
+  const { balance } = useSelector((state) => state.balance);
+
+  const [amount, setAmount] = useState();
   const [reciept, setReciept] = useState(null);
   const { address } = useParams();
 
   const handleInputChange = (value) => {
     setAmount(value);
   };
-  const handleSendAmount = (event) => {
+  const handleSendAmount = async (event) => {
     event.preventDefault();
     const transactionHash = `0x${faker.string.alphanumeric(64)}`;
     const blockHash = `0x${faker.string.alphanumeric(64)}`;
@@ -24,7 +27,7 @@ const TransferForm = ({ addresses,setTransactions }) => {
       transactionHash,
       blockHash,
       blockNumber,
-      from: addresses[0],
+      from: balance[0].address,
       to: address,
       amount: amount,
       gasUsed,
@@ -32,17 +35,34 @@ const TransferForm = ({ addresses,setTransactions }) => {
     const transactionHistory = {
       transactionHash,
       status: "SUCCESS",
-      timeStamp: Date.now(),
-      from: addresses[0],
-      to: address,
-      amount: amount + "\nETH",
+      timestamp: Date.now(),
+      source: balance[0].address,
+      destination: address,
+      amount: parseInt(amount, 10),
       gasUsed,
     };
-    setReciept(reciept);
-    setTransactions((prv) => {
-      return [...prv, transactionHistory];
-    });
-    setAmount("");
+
+    try {
+      const response = await fetch("http://localhost:5000/transaction/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(transactionHistory),
+      });
+      if (response.ok) {
+        const responseData = await response.json();
+        setReciept(reciept);
+        setAmount("");
+        toast.success(responseData?.message);
+      } else {
+        console.error("Error:", response.statusText);
+        toast.error(response.statusText);
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -51,7 +71,7 @@ const TransferForm = ({ addresses,setTransactions }) => {
       <div className='Form-sub-container'>
         <p className='Form-subtitle'>
           From:
-          <span className='From-subtitle-text'>{`\n${addresses[0]}`}</span>
+          <span className='From-subtitle-text'>{`\n${balance[0]?.address}`}</span>
         </p>
         <p className='Form-subtitle'>
           To:
@@ -67,11 +87,17 @@ const TransferForm = ({ addresses,setTransactions }) => {
                 onChange={(e) => handleInputChange(e?.target?.value)}
                 required
                 className='Form-input'
+                disabled={reciept}
               />
             </div>
             <button type='submit' className='Form-button' disabled={reciept}>
               Send
             </button>
+            <p>
+              {reciept
+                ? "***Please delete recipet if you want to send again"
+                : ""}
+            </p>
           </div>
         </form>
       </div>

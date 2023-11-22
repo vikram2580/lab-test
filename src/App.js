@@ -1,34 +1,15 @@
-import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
+import React, { useEffect } from "react";
 import "./App.css";
-
+import { useDispatch } from "react-redux";
+import { fetchBalance } from "./redux/reducers/balanceSlice";
 import Router from "./router";
 
 function App() {
-  const [transactions, setTransactions] = useState([]);
-  const [addresses, setAddresses] = useState([]);
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    fetch(`http://localhost:5000/account/addresses`, { method: "GET" })
-      .then((response) => response.json())
-      .then((res) => {
-        const data = res?.addresses;
-        setAddresses(data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  return (
-    <React.StrictMode>
-      <Router
-        transactions={transactions}
-        setTransactions={setTransactions}
-        addresses={addresses}
-      />
-    </React.StrictMode>
-  );
+    dispatch(fetchBalance());
+  }, [dispatch]);
+  return <Router />;
 }
 
 export default App;

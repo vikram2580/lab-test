@@ -1,16 +1,28 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./transactions.css";
 import moment from "moment/moment";
 
-const Transactions = ({ transactions }) => {
-    
+const Transactions = ({}) => {
+  const [transactions, setTransactions] = useState([]);
+  useEffect(() => {
+    fetch(`http://localhost:5000/transaction/history`, { method: "GET" })
+      .then((response) => response.json())
+      .then((res) => {
+        const data = res?.transactions;
+        setTransactions(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div className='Transactions-container'>
       <h1>Transaction History</h1>
       {transactions?.length ? (
-        transactions?.map((it) => {
+        transactions?.map((it, index) => {
           return (
-            <div className='Transactions-item-container'>
+            <div key={it?._id} className='Transactions-item-container'>
               <p className='Transactions-item-subtitle'>
                 Transaction Hash:
                 <span className='Transactions-item-subtitle-text'>{`\n${it.transactionHash}`}</span>
@@ -22,18 +34,18 @@ const Transactions = ({ transactions }) => {
               <p className='Transactions-item-subtitle'>
                 Time Stamp:
                 <span className='Transactions-item-subtitle-text'>{`\n${moment(
-                  it.timeStamp
+                  it.timestamp
                 )}`}</span>
               </p>
               <p className='Transactions-item-subtitle'>
                 From:
                 <span className='Transactions-item-subtitle-text'>
-                  {`\n${it.from}`}{" "}
+                  {`\n${it.source}`}{" "}
                 </span>
               </p>
               <p className='Transactions-item-subtitle'>
                 To:
-                <span className='Transactions-item-subtitle-text'>{`\n${it.to}`}</span>
+                <span className='Transactions-item-subtitle-text'>{`\n${it.destination}`}</span>
               </p>
               <p className='Transactions-item-subtitle'>
                 Gas Used:
