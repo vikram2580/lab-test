@@ -11,7 +11,7 @@ const sendTransaction = async (req, res) => {
     gasUsed,
     timestamp,
   } = req.body;
-  const balance = await Balance.findOne({ address: source });
+  const balance = await Balance.findOne({ account: source });
   const dueBalance = balance.balance;
   try {
     const transaction = new Transaction({

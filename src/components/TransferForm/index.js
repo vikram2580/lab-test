@@ -27,7 +27,7 @@ const TransferForm = ({ addresses }) => {
       transactionHash,
       blockHash,
       blockNumber,
-      from: balance[0].address,
+      from: balance[0].account,
       to: address,
       amount: amount,
       gasUsed,
@@ -36,7 +36,7 @@ const TransferForm = ({ addresses }) => {
       transactionHash,
       status: "SUCCESS",
       timestamp: Date.now(),
-      source: balance[0].address,
+      source: balance[0].account,
       destination: address,
       amount: parseInt(amount, 10),
       gasUsed,
@@ -71,7 +71,7 @@ const TransferForm = ({ addresses }) => {
       <div className='Form-sub-container'>
         <p className='Form-subtitle'>
           From:
-          <span className='From-subtitle-text'>{`\n${balance[0]?.address}`}</span>
+          <span className='From-subtitle-text'>{`\n${balance[0]?.account}`}</span>
         </p>
         <p className='Form-subtitle'>
           To:

@@ -16,7 +16,7 @@ const Addresses = () => {
     }
   }, [dispatch, addresses]);
 
-  const addressesArray = [balance[0]?.address].concat(addresses);
+  const addressesArray = [balance[0]?.account].concat(addresses);
 
   return (
     <div className='Address-container'>

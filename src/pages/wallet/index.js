@@ -19,7 +19,7 @@ const Wallet = () => {
       <div className='Wallet-item-container'>
         <p className='Wallet-item-title'>
           Address:
-          <span className='Wallet-item-subtitle'>{`\n${balance[0]?.address}`}</span>
+          <span className='Wallet-item-subtitle'>{`\n${balance[0]?.account}`}</span>
         </p>
         <p className='Wallet-item-title'>
           Balance:

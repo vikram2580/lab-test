@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const balanceSchema = new mongoose.Schema({
-  address: { type: String },
+  account: { type: String },
   balance: { type: Number },
 });
 
