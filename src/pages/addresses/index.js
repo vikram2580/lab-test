@@ -6,8 +6,8 @@ import { fetchAddresses } from "../../redux/reducers/addressSlice";
 
 const Addresses = () => {
   const dispatch = useDispatch();
-  const { addresses } = useSelector((state) => state.address);
-  const { balance } = useSelector((state) => state.balance);
+  const { addresses } = useSelector((state) => state?.address);
+  const { balance } = useSelector((state) => state?.balance);
 
 
   useEffect(() => {
@@ -16,8 +16,8 @@ const Addresses = () => {
     }
   }, [dispatch, addresses]);
 
-  const addressesArray = [balance[0].address].concat(addresses);
-  
+  const addressesArray = [balance[0]?.address].concat(addresses);
+
   return (
     <div className='Address-container'>
       <h1>Addresses</h1>
