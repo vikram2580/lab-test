@@ -6,7 +6,10 @@ Student Id - 101501507
 
 #student-2
 Name - Reetika
-Student Id - 101501507
+Student Id - 101501507 
 
-To start Web app use : npm run start:app
-TO start backend server use : npm run start:server 
+Instructions for Project installing and running:-
+
+1-First install dependencies by use - npm install
+2-TO start backend server use : npm run start:server 
+3-To start Web app use : npm run start:app
