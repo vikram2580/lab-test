@@ -4,7 +4,7 @@ const Balance = require("../modals/balance");
 //Get all account addresses
 const getAddresses = async (req, res) => {
   try {
-    const addresses = ["0xB0d9FC232A29939bb1D0136e3C7C42eE4A47510b"];
+    const addresses = [];
     for (let i = 0; i < 10; i++) {
       const mockAddress = faker?.finance?.ethereumAddress();
       addresses.push(mockAddress);
